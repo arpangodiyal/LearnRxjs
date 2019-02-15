@@ -1,23 +1,10 @@
 import { Observable } from 'rxjs';
+import * as Rx from 'rxjs';
 
-var observer = {
-    next: (s: any)=>{
-        console.log(s);
-    },
-    error: (err: any)=>{
-        console.log(err);
-    },
-    complete:()=>{
-        console.log('Completed');
-    }
-}
+const el = document.querySelector('.btn');
 
-var observable = Observable.create((observer: any)=>{
-    observer.next('Hello');
-    setTimeout(() => {
-        observer.next('World');
-    }, 2000);
-    setTimeout(()=>{
-        observer.complete();
-    }, 4000);
-}).subscribe(observer)
+Rx.fromEvent(el,'click')
+    .subscribe((
+        next=>console.log(next)
+    ))
+
