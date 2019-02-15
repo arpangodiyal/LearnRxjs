@@ -1,10 +1,23 @@
-class Student{
-    name: String = "John";
+import { Observable } from 'rxjs';
 
-    display(){
-        console.log(this.name);
+var observer = {
+    next: (s: any)=>{
+        console.log(s);
+    },
+    error: (err: any)=>{
+        console.log(err);
+    },
+    complete:()=>{
+        console.log('Completed');
     }
 }
 
-const s = new Student();
-s.display();
+var observable = Observable.create((observer: any)=>{
+    observer.next('Hello');
+    setTimeout(() => {
+        observer.next('World');
+    }, 2000);
+    setTimeout(()=>{
+        observer.complete();
+    }, 4000);
+}).subscribe(observer)
